@@ -1,0 +1,23 @@
+{
+  "name": "http-proj",
+  "version": "1.0.0",
+  "description": "this project is following a tutorial on http course",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/souadshhy/http-tutorial.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/souadshhy/http-tutorial/issues"
+  },
+  "homepage": "https://github.com/souadshhy/http-tutorial#readme",
+  "devDependencies": {
+    "jest": "^30.0.3"
+  }
+}
