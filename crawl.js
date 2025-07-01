@@ -1,3 +1,36 @@
+const {JSDOM} = require("jsdom");
+const { skip } = require("node:test");
+
+function getUrlsFromHTML (htmlBody, BaseURL ){
+    const url = [];
+    const dom = new JSDOM(htmlBody);
+    const linkElements = dom.window.document.querySelectorAll("a");
+    
+    for( const link of linkElements ){
+        
+        if(link.href.slice(0,1) === '/'){
+            // relative 
+            try{
+                const hostURL = new URL(`${BaseURL}${link.href}`);
+                url.push(hostURL.href);
+            }
+            catch(err){
+                console.log(`Error in relative link: ${err.message}`);
+            }
+        }
+        else{
+            try{
+                const hostURL = new URL(link.href);
+                url.push(hostURL.href);
+            }
+            catch( err){
+                console.log(`Error in absolute link: ${err.message}`)
+            }
+        }
+    }
+    return url;
+}
+
 function normalizeURL(url){
     const urlObj = new URL(url);
     const hostURL = `${urlObj.hostname}${urlObj.pathname}`;
@@ -8,6 +41,10 @@ function normalizeURL(url){
 
 }
 
+
+
+
 module.exports ={
-    normalizeURL
+    normalizeURL,
+    getUrlsFromHTML
 }
