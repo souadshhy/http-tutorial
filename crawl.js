@@ -20,6 +20,7 @@ function getUrlsFromHTML (htmlBody, BaseURL ){
         }
         else{
             try{
+                // absolute
                 const hostURL = new URL(link.href);
                 url.push(hostURL.href);
             }
@@ -41,10 +42,33 @@ function normalizeURL(url){
 
 }
 
+async function crawlPage(webpage){
+
+    console.log(`actively crawling ${webpage}`);
+    try{ 
+        const resp = await fetch(webpage);
+
+        if(resp.status >399){
+            console.log(`error in fetch with status code: ${resp.status}, on page: ${webpage}`);
+        }
+        const contentType = resp.headers.get("Content-Type");
+        if(!contentType.includes("text/html")){
+            console.log(`non html response, content type: ${contentType}, on page: ${webpage}`);
+            return;
+        }
+        console.log( await resp.text());
+        
+
+    } catch(err){
+        console.log(`error in fetch: ${err.message}, on page: ${webpage}`);
+    }
+
+}
 
 
 
 module.exports ={
     normalizeURL,
-    getUrlsFromHTML
+    getUrlsFromHTML, 
+    crawlPage
 }
