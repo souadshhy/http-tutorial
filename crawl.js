@@ -104,7 +104,8 @@ async function crawlPage(baseURL,currentURL, pages){
 
 
 
-module.exports ={
+module.exports =
+{
     normalizeURL,
     getUrlsFromHTML, 
     crawlPage
